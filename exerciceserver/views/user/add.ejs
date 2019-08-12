@@ -1,0 +1,44 @@
+<!--
+including header content which is common for all pages
+-->
+<%- include ../layouts/header.ejs %>	
+<% if (merr) { %>
+	<p style="color:red"><%- merr %></p>
+<% } %>
+
+<% if (msucc) { %>
+	<p style="color:green"><%- msucc %></p>
+<% } %>
+<form action="/users/add" method="post" name="form1">
+	<table width="25%" border="0">
+		<tr> 
+			<td>Email</td>
+			<td><input type="text" name="email" id="name" value="<%= email %>" /></td>
+		</tr>
+		<tr> 
+			<td>Password</td>
+			<td><input type="text" name="password" value="<%= password %>" /></td>
+		</tr>
+		<tr> 
+			<td>First Name</td>
+			<td><input type="text" name="firstName" value="<%= firstName %>" /></td>
+		</tr>
+		<tr> 
+			<td>Last Name</td>
+			<td><input type="text" name="lastName" value="<%= lastName %>" /></td>
+		</tr>
+		<tr> 
+			<td>Phone Number</td>
+			<td><input type="text" name="phoneNumber" value="<%= phoneNumber %>" /></td>
+		</tr>
+		<tr> 
+			<td></td>
+			<td><input type="submit" name="Submit" value="Add" /></td>
+		</tr>
+	</table>
+</form>
+
+<!--
+including footer content which is common for all pages
+-->
+<%- include ../layouts/footer.ejs %>

@@ -1,0 +1,76 @@
+var express = require('express');
+var router = express.Router();
+var expressValidator = require('express-validator')
+router.use(expressValidator())
+var User= require('../models/user');
+const request = require('request')
+/* GET users listing. */
+router.get('/', function(req, res, next) {
+  res.send('respond with a resource');
+});
+router.get('/add', function(req, res, next){	
+	// render to views/user/add.ejs
+	res.render('user/add', {
+		title: 'Add New User',
+    email: '',
+    password: '',
+		firstName: '',
+    lastName: ''		,
+    phoneNumber: ''		,
+    merr:null,
+    msucc:null
+	})
+})
+router.post('/add', function(req, res, next){	
+	req.assert('email', 'Name is required').isEmail()         //Validate name
+	req.assert('password', 'Age is required').notEmpty()             //Validate age
+  req.assert('firstName', 'A valid email is required').notEmpty()  //Validate email
+
+    var errors = req.validationErrors()
+    
+    if( !errors ) {  
+
+    var user = new User();
+    user.email=  req.sanitize('email').escape().trim();
+    user.password= req.sanitize('password').escape().trim();
+    user.firstName= req.sanitize('firstName').escape().trim();
+    user.lastName= req.sanitize('lastName').escape().trim();
+    user.phoneNumber= req.sanitize('phoneNumber').escape().trim();
+    console.log(user)
+	
+    res.render('user/add', { 
+      title: 'Add New User',
+
+        email: req.body.email,
+        password: req.body.password,
+        firstName:  req.body.firstName,
+        lastName:  req.body.lastName		,
+        phoneNumber:  req.body.phoneNumber		,
+        merr:null,
+        msucc:"success"
+      
+  })
+	}
+	else {   //Display errors to user
+		var error_msg = ''
+		errors.forEach(function(error) {
+			error_msg += error.msg + '<br>'
+		})				
+		
+
+        res.render('user/add', { 
+            title: 'Add New User',
+     
+              email: req.body.email,
+              password: req.body.password,
+              firstName:  req.body.firstName,
+              lastName:  req.body.lastName		,
+              phoneNumber:  req.body.phoneNumber		,
+              merr:"error",
+              msucc:null
+            
+        })
+    }
+})
+
+module.exports = router;
