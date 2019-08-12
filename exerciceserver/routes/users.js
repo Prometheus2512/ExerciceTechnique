@@ -105,17 +105,21 @@ request.post('https://dev.api.clacdesdoigts.com/v2/user',
 
 /* get token from CDD API. */
 router.post('/login', function(req, rez) {
-  let data = JSON.stringify({
+  /*let data = JSON.stringify({
     password: "Asdfasdf00",
     username:  "apitest001@clacdesdoigts.com"
 })
-
+*/
+let data = JSON.stringify({
+  password: req.body.password,
+  username:  req.body.password
+})
 
 request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
 {
   json: {
-    password: "Asdfasdf00",
-    username:  "apitest001@clacdesdoigts.com"
+    password: req.body.password,
+  username:  req.body.username
   }
 },
 (error, res, body) => {
@@ -124,10 +128,31 @@ request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
     return
   }
   //console.log(`statusCode: ${res.statusCode}`)
+  if(body.result=="error"){
+    rez.render('user/login', {
+      title: 'login',
+      username: '',
+      password: ''
+    })
+  }
+  else
+  {  console.log(body.data.token)
+    rez.cookie('auth',body.data.token);
+    rez.send("ok")
+    rez.render('user/add', { 
+      title: 'Add New User',
 
-  console.log(body.data.token)
-  rez.cookie('auth',body.data.token);
-  rez.send("ok")
+        email: "",
+        password: "",
+        firstName:  "",
+        lastName: ""		,
+        phoneNumber:  ""		
+      
+      
+  })
+  }
+
+
 }
 )
 
