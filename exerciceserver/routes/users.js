@@ -112,7 +112,7 @@ router.post('/login', function(req, rez) {
 */
 let data = JSON.stringify({
   password: req.body.password,
-  username:  req.body.password
+  username:  req.body.username
 })
 
 request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
@@ -129,6 +129,7 @@ request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
   }
   //console.log(`statusCode: ${res.statusCode}`)
   if(body.result=="error"){
+    console.log(body);
     rez.render('user/login', {
       title: 'login',
       username: '',
