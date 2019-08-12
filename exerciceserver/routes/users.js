@@ -21,6 +21,13 @@ router.get('/add', function(req, res, next){
     msucc:null
 	})
 })
+router.get('/log', function(req, res, next){	
+	res.render('user/login', {
+		title: 'login',
+    username: '',
+    password: ''
+	})
+})
 router.post('/add', function(req, res, next){	
 	req.assert('email', 'Name is required').isEmail()         //Validate name
 	req.assert('password', 'Age is required').notEmpty()             //Validate age
@@ -117,6 +124,7 @@ request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
     return
   }
   //console.log(`statusCode: ${res.statusCode}`)
+
   console.log(body.data.token)
   rez.cookie('auth',body.data.token);
   rez.send("ok")
