@@ -119,7 +119,7 @@ request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
   //console.log(`statusCode: ${res.statusCode}`)
   console.log(body.data.token)
   rez.cookie('auth',body.data.token);
-  rez.send(body.data.token)
+  rez.send("ok")
 }
 )
 
