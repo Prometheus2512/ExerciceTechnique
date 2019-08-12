@@ -117,8 +117,9 @@ request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
     return
   }
   //console.log(`statusCode: ${res.statusCode}`)
-  console.log(body)
-  rez.send(body)
+
+  rez.cookie('auth',body.data[0].token);
+  rez.send(body.data[0].token)
 }
 )
 
