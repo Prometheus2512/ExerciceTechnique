@@ -119,7 +119,7 @@ request.post('https://dev.api.clacdesdoigts.com/v2/auth/token',
 {
   json: {
     password: req.body.password,
-  username:  req.body.username
+   username:  req.body.username
   }
 },
 (error, res, body) => {
